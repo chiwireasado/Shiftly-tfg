@@ -1,0 +1,25 @@
+# Dependencias (Lo más importante)
+/node_modules/
+/.angular/
+
+# Resultados de compilación
+/dist/
+/tmp/
+/out-tsc/
+/bazel-out/
+
+# Caché de herramientas
+/.sass-cache/
+/.cache/
+
+# environment
+.env
+.env.local
+
+
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
