@@ -1,0 +1,36 @@
+.container-panel-control{
+  background-color: #3d1254;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.login-form{
+  margin: 20px;
+  padding: 30px 50px;
+}
+
+.boton-login {
+  padding: 10px;
+  background-color: #9c27b0;
+  color: white;
+  border-radius: 30px;
+}
+
+.boton-login:hover {
+  background-color: #d66eec;
+  color: #9c27b0;
+}
+.boton-regis{
+  padding: 10px;
+  background-color: #d66eec;
+  color:#9c27b0;
+  border-radius: 30px;
+}
+
+.boton-regis:hover {
+  background-color: #9c27b0;
+  color:white ;
+}
+

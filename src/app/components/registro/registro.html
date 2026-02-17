@@ -1,0 +1,106 @@
+<div class="panel-registro">
+
+    <div class="content">
+
+        <form class="bg-white border border-light-subtle rounded-3 register-form" method="post">
+
+        <h1 class="h4 m-auto mb-3 text-center">Registrarme</h1>
+
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="registerEmail" placeholder="...@example.com">
+                <label for="registerEmail">Correo electrónico</label>
+
+                <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                </div>
+            </div>
+
+            <div class="form-floating mb-3 position-relative">
+                <input type="password" class="form-control password" id="registerPassword" placeholder="*******">
+                <label for="registerPassword">Contraseña</label>
+
+                <div class="show-password" onclick="TogglePassword(this)">
+                    <i class="bi bi-eye-fill fs-5"></i>
+                </div>
+
+                <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                </div>
+            </div>
+
+            <div class="form-floating mb-3 position-relative">
+                <input type="password" class="form-control password" id="registerRepeatPassword" placeholder="*******">
+                <label for="registerRepeatPassword">Repetir contraseña</label>
+
+                <div class="show-password" onclick="TogglePassword(this)">
+                    <i class="bi bi-eye-fill fs-5"></i>
+                </div>
+
+                <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                </div>
+            </div>
+
+            <div class="form-floating mb-5 position-relative">
+                <input type="text" class="form-control" id="registerUsername" placeholder="Nombre de usuario">
+                <label for="registerUsername">Nombre de usuario</label>
+
+                <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <button type="button" class="btn btn-outline-danger d-block w-100 btn-steps" data-type-step="next">Siguiente</button>
+            </div>
+        </form>
+
+        <form class="bg-white border border-light-subtle rounded-3 register-form-second" method="post">
+
+            <div class="steps">
+                <div class="form-floating mb-3 position-relative">
+                    <input type="text" class="form-control" id="registerName" placeholder="Nombre">
+                    <label for="registerName">Nombre</label>
+
+                    <div class="invalid-feedback">
+                        Este campo es obligatorio.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 position-relative">
+                    <input type="text" class="form-control" id="registerlastName" placeholder="Ap">
+                    <label for="registerlastName">Apellidos</label>
+
+                    <div class="invalid-feedback">
+                        Este campo es obligatorio.
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 position-relative">
+                    <input type="text" class="form-control" id="registerEmpresa" placeholder="Apellidos">
+                    <label for="registerEmpresa">Nombre de empresa</label>
+
+                    <div class="invalid-feedback">
+                        Este campo es obligatorio.
+                    </div>
+                </div>
+
+                <div class="mb-5 position-relative">
+                    <label class="form-label" for="registerUser">Nº usuarios (empleados)</label>
+                    <input type="number" class="form-control" id="registerUser" min="1" max="5">
+
+                    <div class="invalid-feedback">
+                        Este campo es obligatorio.
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="button" class="btn btn-outline-danger d-block btn-steps" data-type-step="back">Atrás</button>
+                    <button type="submit" class="btn btn-outline-primary d-block change-form">Finalizar registro</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
