@@ -22,3 +22,43 @@
   color: #9c27b0;
   transform: scale(1.05);
 }
+
+@keyframes moveText {
+  0% {
+    transform: skew(0deg);
+  }
+  10% {
+    transform: skew(-4deg);
+  }
+  20% {
+    transform: skew(3deg);
+  }
+  30% {
+    transform: skew(0deg);
+  }
+  40% {
+    transform: skew(4deg);
+  }
+  50% {
+    transform: skew(2deg);
+  }
+  60% {
+    transform: skew(1deg);
+  }
+  70% {
+    transform: skew(4deg);
+  }
+  80% {
+    transform: skew(-3deg);
+  }
+  90% {
+    transform: skew(-1deg);
+  }
+  100% {
+    transform: skew(5deg);
+  }
+}
+
+.animation-skew {
+  animation: moveText 1s infinite linear alternate-reverse;
+}

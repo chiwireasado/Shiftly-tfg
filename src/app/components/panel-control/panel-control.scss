@@ -6,6 +6,7 @@
   justify-content: center;
   padding: 20px;
 }
+
 .login-form{
   margin: 20px;
   padding: 30px 50px;
@@ -24,13 +25,18 @@
 }
 .boton-regis{
   padding: 10px;
-  background-color: #d66eec;
-  color:#9c27b0;
+  background-color: #9c27b0;
+  color: white;
   border-radius: 30px;
 }
 
 .boton-regis:hover {
-  background-color: #9c27b0;
-  color:white ;
+  background-color: #d66eec;
+  color: #9c27b0 ;
+}
+
+input:hover {
+  background-color: gainsboro;
+  border-color: black;
 }
 
