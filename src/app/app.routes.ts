@@ -13,5 +13,27 @@ export const routes: Routes = [
     {
         path: 'registro',
         loadComponent: () => import('./components/registro/registro').then(m => m.Registro),
+    },
+    {
+        path: 'loginAdmin',
+        loadComponent: () => import('./components/login-admin/login-admin').then(m => m.LoginAdmin),
+    },
+    {
+        path: 'loginUser',
+        loadComponent: () => import('./components/login-user/login-user').then(m => m.LoginUser),
+    },
+    {
+        path: 'auth',
+        loadComponent: () => import('./layouts/auth-layout/auth-layout').then(m => m.AuthLayout),
+        children: [
+            {
+                path: 'loginAdmin',
+                loadComponent: () => import('./components/login-admin/login-admin').then(m => m.LoginAdmin),
+            },
+            {
+                path: 'loginUser',
+                loadComponent: () => import('./components/login-user/login-user').then(m => m.LoginUser),
+            }
+        ]
     }
 ];

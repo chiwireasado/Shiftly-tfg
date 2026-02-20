@@ -1,0 +1,35 @@
+.container-pagina-principal-admin{
+  background-color: #2c0b3e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caja-admin-compacta{
+  border: #9c27b0 solid 2px;
+}
+
+
+h1{
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 100px;
+  color: rgba(0, 0, 0, 0.58);
+}
+
+
+
+
+
+
+button{
+  min-width: 250px;
+  background-color: #9c27b0;
+  color: white;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+button:hover{
+  background-color: #d66eec;
+
+}

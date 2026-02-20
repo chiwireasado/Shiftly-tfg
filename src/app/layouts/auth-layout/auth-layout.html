@@ -1,0 +1,27 @@
+<header class="nav d-flex align-items-center justify-content-between px-4">
+
+    <div class="nav-section">
+        <i class="icon bi-person-circle"></i>
+    </div>
+
+    <div class="nav-section">
+        <div class="back-text">
+            <a routerLink="/info">
+                <h1>SHIFTLY</h1>
+            </a>
+        </div>
+
+    </div>
+    <div class="nav-section d-flex justify-content-end">
+        <a routerLink="/panel-control">
+            <i class="candado bi-lock-fill"></i>
+        </a>
+    </div>
+
+</header>
+
+<main class="flex-grow-1" style="min-height: 80vh;">
+    <router-outlet></router-outlet>
+</main>
+
+<footer class="bg-second--ary p-3">Pie de página común</footer>
