@@ -23,6 +23,11 @@ export const routes: Routes = [
         loadComponent: () => import('./components/login-user/login-user').then(m => m.LoginUser),
     },
     {
+        path: 'info',
+        loadComponent: () => import('./components/info/info').then(m => m.Info),
+
+    },
+    {
         path: 'auth',
         loadComponent: () => import('./layouts/auth-layout/auth-layout').then(m => m.AuthLayout),
         children: [
