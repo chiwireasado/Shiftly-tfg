@@ -1,20 +1,18 @@
 .container-pagina-principal-admin{
   background-color: #2c0b3e;
-  width: 100vw;
 }
 
 .caja-admin-compacta{
-  width: 440px;
+  width: 100%;
+  max-width: 440px;
   border: #9c27b0 solid 2px;
 }
 .caja-uno-compacta{
-  width: 220px;
+  width: 100%;
+  max-width: 240px;
   border: #9c27b0 solid 2px;
   display: flex;
   flex-direction: column;
-}
-.space{
-  width: 50px;
 }
 
 button{
