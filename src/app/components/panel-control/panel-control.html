@@ -1,42 +1,80 @@
-<div class="container-panel-control">
+<div class="app-wrapper">
 
-    <div class="content">
-
-
-        <form class="bg-white border border-light-subtle rounded-3 login-form" method="post">
-
-            <h1 class="h4 m-auto mb-3 text-center">Iniciar sesión</h1>
-
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="loginUser" placeholder="Username">
-                <label for="loginUser">Usuario</label>
-
-                <div class="invalid-feedback">
-                    Este campo es obligatorio.
-                </div>
-            </div>
-
-            <div class="form-floating mb-4 position-relative">
-                <input type="password" class="form-control password" id="loginPassword" placeholder="*******">
-                <label for="loginPassword">Contraseña</label>
-                <div class="show-password" onclick="TogglePassword(this)">
-                    <i class="bi bi-eye-fill fs-5"></i>
-                </div>
-                <div class="invalid-feedback">
-                    Este campo es obligatorio.
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-center gap-2">
-                <p>¿No tienes cuenta?</p>
-                <a routerLink="/registro">Registrate ahora</a>
-            </div>
-
-            <div class="d-flex justify-content-center gap-3">
-                <button routerLink="/auth/loginAdmin" class="boton-login btn-light btn-lg">Iniciar Sesion como administrador</button>
-                <button routerLink="/auth/loginUser" class="boton-regis btn-light btn-lg">Iniciar Sesion como Usuario</button>
-            </div>
-        </form>
-
+    <div class="diagonal-bg">
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
     </div>
+
+    <div class="container-panel-control">
+
+        <div class="content">
+
+
+            <form class="bg-white border border-light-subtle rounded-3 login-form" method="post">
+
+                <h1 class="h4 m-auto mb-3 text-center">Iniciar sesión</h1>
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="loginUser" placeholder="correo@empresa.com"
+                           name="email" [(ngModel)]="credenciales.email" required #emailCtrl="ngModel"
+                           [ngClass]="{'is-invalid': emailCtrl.invalid && emailCtrl.touched}">
+                    <label for="loginUser">Correo electrónico</label>
+
+                    <div class="invalid-feedback">
+                        <span *ngIf="emailCtrl.errors?.['required']">Este campo es obligatorio.</span>
+                        <span *ngIf="emailCtrl.errors?.['email']">Introduce un correo electrónico válido.</span>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 position-relative d-flex align-items-center">
+                    <input [type]="showPassword ? 'text' : 'password'" class="form-control password w-100" id="registerPassword" placeholder="*******"
+                           name="password" [(ngModel)]="credenciales.password" required #passCtrl="ngModel"
+                           [ngClass]="{'is-invalid': passCtrl.invalid && passCtrl.touched}">
+                    <label for="registerPassword">Contraseña</label>
+
+                    <button type="button" class="btn-show-password" (click)="showPassword = !showPassword">
+                        <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                    </button>
+                </div>
+
+                <div *ngIf="mensajeError" class="alert alert-danger text-center mb-3" style="color: #dc3545; font-size: 0.9rem; font-weight: bold;">
+                    {{ mensajeError }}
+                </div>
+
+                <div class="d-flex justify-content-center gap-2">
+                    <p>¿No tienes cuenta?</p>
+                    <a routerLink="/registro">Registrate ahora</a>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="button" (click)="onLogin()" class="boton-regis btn-light btn-lg">Iniciar Sesion</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
 </div>

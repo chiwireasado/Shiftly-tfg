@@ -1,1 +1,171 @@
-<p>login-user works!</p>
+<div class="app-wrapper">
+    <div class="diagonal-bg">
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+    </div>
+
+    <div *ngIf="mensajeAccion" class="alert alert-warning border-warning position-fixed start-50 translate-middle-x text-center fw-bold shadow-lg animate__animated animate__fadeInDown"
+         style="top: 20px; z-index: 9999; min-width: 350px; background-color: #fff3cd; color: #664d03;">
+        <i class="bi bi-info-circle-fill me-2"></i> {{ mensajeAccion }}
+    </div>
+
+    <div class="container-pos-user h-100 d-flex flex-column p-4" style="position: relative; z-index: 10;">
+
+        <div class="row w-100 m-0 g-4 flex-grow-1 align-items-stretch">
+
+            <div class="col-12 col-lg-6">
+
+                <div *ngIf="vistaActual === 'ventas'" class="rounded-3 h-100 overflow-hidden d-flex border border-primary border-3 shadow-lg" style="min-height: 400px;">
+
+                    <div class="w-50 d-flex flex-column bg-white">
+                        <div class="bg-secondary-subtle d-flex justify-content-between align-items-center px-3 py-2 text-dark fw-semibold fs-6" style="border-bottom: 1px solid #dee2e6;">
+                            <span>Turno: Maria</span>
+                            <button *ngIf="ticket.length > 0" (click)="cancelarOVaciarTicket()" class="btn btn-sm btn-danger py-0 px-2 fw-bold" style="font-size: 0.7rem;">Vaciar</button>
+                        </div>
+
+                        <div class="flex-grow-1 p-2 overflow-y-auto ticket-scroll" style="background-color: #f8f9fa;">
+
+                            <div *ngIf="ticket.length === 0" class="text-muted text-center mt-5 py-4 animate__animated animate__fadeIn">
+                                <i class="bi bi-receipt-cutoff fs-2 d-block mb-2 text-secondary"></i>
+                                El ticket está vacío.<br><small>Selecciona un producto.</small>
+                            </div>
+
+                            <div *ngFor="let item of ticket" class="d-flex justify-content-between align-items-center py-2 px-2 border-bottom bg-white mb-1 shadow-sm rounded animate__animated animate__fadeInLeft">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-dark ps-1 text-uppercase" style="font-size: 0.9rem;">{{ item.nombre }}</span>
+                                    <small class="text-muted ps-1">x{{ item.cantidad }} ({{ item.precio | number:'1.2-2' }}€/ud)</small>
+                                </div>
+                                <span class="fw-bold text-dark pe-1">{{ (item.precio * item.cantidad) | number:'1.2-2' }}€</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-black text-white p-3 d-flex justify-content-between align-items-center fw-bold fs-4">
+                            <span>TOTAL</span>
+                            <span class="text-warning">{{ totalTicket | number:'1.2-2' }}€</span>
+                        </div>
+                    </div>
+
+                    <div class="w-50 d-flex flex-column text-white fw-bold" style="background-color: #2b143a;">
+
+                        <div *ngIf="modoVista === 'CATEGORIAS'" class="w-100 h-100 d-flex flex-wrap align-content-stretch">
+                            <button (click)="seleccionarCategoria('DULCES')" class="w-50 btn-cat border-0 d-flex align-items-center justify-content-center text-uppercase fs-5" style="background-color: #5d2b7d; min-height: 50%;">Dulces</button>
+                            <button (click)="seleccionarCategoria('BEBIDAS')" class="w-50 btn-cat border-0 d-flex align-items-center justify-content-center text-uppercase fs-5" style="background-color: #8c4fc6; min-height: 50%;">Bebidas</button>
+                            <button (click)="seleccionarCategoria('TOSTADAS')" class="w-50 btn-cat border-0 d-flex align-items-center justify-content-center text-uppercase fs-5" style="background-color: #9d5ee3; min-height: 50%;">Tostadas</button>
+                            <button (click)="seleccionarCategoria('COMIDA')" class="w-50 btn-cat border-0 d-flex align-items-center justify-content-center text-uppercase fs-5" style="background-color: #6a328e; min-height: 50%;">Comida</button>
+                        </div>
+
+                        <div *ngIf="modoVista === 'PRODUCTOS'" class="w-100 h-100 d-flex flex-wrap align-content-stretch animate__animated animate__fadeIn">
+
+                            <button *ngFor="let prod of productosFiltrados"
+                                    (click)="agregarAlTicket(prod)"
+                                    class="w-50 btn-cat border-0 d-flex flex-column align-items-center justify-content-center text-uppercase p-2"
+                                    style="min-height: 50%;">
+                                <span class="fs-5 mb-1 text-center px-2" style="white-space: normal; line-height: 1.2;">{{ prod.nombre }}</span>
+                            </button>
+
+                            <div *ngIf="productosFiltrados.length === 0" class="w-100 h-100 d-flex flex-column align-items-center justify-content-center text-muted p-4 text-center">
+                                <i class="bi bi-folder-x fs-1 mb-2"></i>
+                                <span>Categoría vacía<br><small class="fs-7">Añade productos en el Admin</small></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="vistaActual === 'informe' && datosInforme" class="bg-white rounded-4 p-4 h-100 shadow-lg d-flex flex-column animate__animated animate__fadeIn" style="min-height: 400px; color: #1a1525;">
+                    <h3 class="fw-bold text-center border-bottom pb-2" style="color: #459a7d;">INFORME ARQUEO DE CAJA</h3>
+
+                    <div class="fs-6 my-2">
+                        <p class="m-1"><strong>Empleado:</strong> {{ datosInforme.empleado }}</p>
+                        <p class="m-1"><strong>Inicio Turno:</strong> {{ datosInforme.hora_inicio }}</p>
+                        <p class="m-1"><strong>Cierre Turno:</strong> {{ datosInforme.hora_fin }}</p>
+                    </div>
+
+                    <div class="flex-grow-1 overflow-y-auto my-2 p-2 border rounded bg-light" style="max-height: 200px;">
+                        <table class="table table-sm m-0 table-borderless">
+                            <thead>
+                            <tr class="border-bottom">
+                                <th>Articulo</th>
+                                <th class="text-center">Cant.</th>
+                                <th class="text-center">Pago</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let venta of datosInforme.desglose">
+                                <td>{{ venta.producto }}</td>
+                                <td class="text-center">x{{ venta.cantidad }}</td>
+                                <td class="text-center"><small class="badge bg-secondary" style="font-size:0.65rem;">{{ venta.metodo_pago }}</small></td>
+                                <td class="text-end">{{ venta.subtotal | number:'1.2-2' }}€</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-dark text-white p-3 rounded d-flex justify-content-between align-items-center fw-bold fs-5 mt-auto">
+                        <span>TOTAL RECAUDADO</span>
+                        <span class="text-warning">{{ datosInforme.total_ventas | number:'1.2-2' }}€</span>
+                    </div>
+                </div>
+
+                <div *ngIf="vistaActual === 'inventario'" class="bg-white rounded-4 p-4 h-100 shadow-lg animate__animated animate__fadeIn" style="min-height: 400px;">
+                    <h2 class="fw-bold mb-4" style="color: #459a7d;">Stock de la Tienda</h2>
+                    <p class="text-muted">Aquí irá la consulta de stock general para los usuarios...</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <div class="row g-0 h-100 border border-dark border-2 rounded-3 overflow-hidden shadow-lg" style="min-height: 400px;">
+
+                    <div class="col-6 border-bottom border-end border-dark">
+                        <button (click)="cambiarVista('ventas'); volverACategorias()" class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-dark">Categorias</button>
+                    </div>
+                    <div class="col-6 border-bottom border-dark p-0">
+
+                        <button *ngIf="turnoActivo"
+                                (click)="cerrarTurnoEmpleado()"
+                                class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-dark ">
+                            Cerrar turno
+                        </button>
+
+                        <button *ngIf="!turnoActivo"
+                                (click)="abrirTurnoEmpleado()"
+                                class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-white">
+                            Abrir turno
+                        </button>
+
+                    </div>
+
+                    <div class="col-6 border-bottom border-end border-dark">
+                        <button (click)="ejecutarAccionCaja('informe')" class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-dark">Crear informe</button>
+                    </div>
+                    <div class="col-6 border-bottom border-dark">
+                        <button (click)="cargarInformeFinal()" class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-dark">Ver informe</button>
+                    </div>
+
+                    <div class="col-6 border-bottom border-end border-dark">
+                        <button (click)="ejecutarAccionCaja('buzon')" class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-dark">Sacar buzon</button>
+                    </div>
+                    <div class="col-6 border-bottom border-dark">
+                        <button (click)="ejecutarAccionCaja('cajon')" class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-dark">abrir cajon</button>
+                    </div>
+
+                    <div class="col-6 border-end border-dark">
+                        <button (click)="procesarPago('TARJETA')" class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-dark">Pagar Tarjeta</button>
+                    </div>
+                    <div class="col-6">
+                        <button (click)="procesarPago('EFECTIVO')" class="btn-func w-100 h-100 border-0 fw-semibold fs-5 text-dark">Pagar efectivo</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

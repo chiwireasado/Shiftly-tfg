@@ -1,22 +1,60 @@
+<div class="app-wrapper">
+
+    <div class="diagonal-bg">
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+        <div class="marquee-row">
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+            <span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span>
+        </div>
+    </div>
+
 <div class="panel-registro">
 
     <div class="content">
 
         <form class="active bg-white border border-light-subtle rounded-3 register-form" method="post">
 
-        <h1 class="h4 m-auto mb-3 text-center">Registrarme</h1>
+            <h1 class="h4 m-auto mb-3 text-center">Registrarme</h1>
+
+            <div *ngIf="mensajeErrorBackend" class="alert alert-danger text-center p-2 mb-3" style="font-size: 0.9rem;">
+                {{ mensajeErrorBackend }}
+            </div>
 
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="registerEmail" placeholder="...@example.com">
+                <input type="email" class="form-control" id="registerEmail" placeholder="...@example.com"
+                       name="email" [(ngModel)]="nuevoUsuario.email" required email #emailCtrl="ngModel"
+                       [ngClass]="{'is-invalid': emailCtrl.invalid && emailCtrl.touched}">
                 <label for="registerEmail">Correo electrónico</label>
 
                 <div class="invalid-feedback">
-                    Este campo es obligatorio.
+                    <span *ngIf="emailCtrl.errors?.['required']">Este campo es obligatorio.</span>
+                    <span *ngIf="emailCtrl.errors?.['email']">Introduce un correo electrónico válido.</span>
                 </div>
             </div>
 
             <div class="form-floating mb-3 position-relative">
-                <input type="text" class="form-control" id="registerUsername" placeholder="Nombre de usuario">
+                <input type="text" class="form-control" id="registerUsername" placeholder="Nombre de usuario"
+                       name="username" [(ngModel)]="nuevoUsuario.username" required #usernameCtrl="ngModel"
+                       [ngClass]="{'is-invalid': usernameCtrl.invalid && usernameCtrl.touched}">
                 <label for="registerUsername">Nombre de usuario</label>
 
                 <div class="invalid-feedback">
@@ -25,35 +63,40 @@
             </div>
 
             <div class="form-floating mb-3 position-relative">
-                <input type="password" class="form-control password" id="registerPassword" placeholder="*******">
+                <input [type]="showPassword1 ? 'text' : 'password'" class="form-control password" id="registerPassword" placeholder="*******"
+                       name="password1" [(ngModel)]="nuevoUsuario.password1" required minlength="6" #pass1Ctrl="ngModel"
+                       [ngClass]="{'is-invalid': pass1Ctrl.invalid && pass1Ctrl.touched}">
                 <label for="registerPassword">Contraseña</label>
 
-                <div class="show-password" onclick="TogglePassword(this)">
-                    <i class="bi bi-eye-fill fs-5"></i>
-                </div>
+                <button type="button" class="btn-show-password" (click)="showPassword1 = !showPassword1">
+                    <i class="bi" [ngClass]="showPassword1 ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                </button>
 
-                <div class="invalid-feedback">
-                    Este campo es obligatorio.
-                </div>
+                <div class="invalid-feedback">Deben ser minimo 6 caracteres.</div>
             </div>
 
-            <div class="form-floating mb-3 position-relative">
-                <input type="password" class="form-control password" id="registerRepeatPassword" placeholder="*******">
-                <label for="registerRepeatPassword">Repetir contraseña</label>
+            <div class="form-floating mb-3 position-relative d-flex align-items-center">
+                <input [type]="showPassword2 ? 'text' : 'password'" class="form-control password" id="registerPassword2" placeholder="*******"
+                       name="password2" [(ngModel)]="nuevoUsuario.password2" required minlength="6" #pass2Ctrl="ngModel"
+                       [ngClass]="{'is-invalid': pass2Ctrl.invalid && pass2Ctrl.touched}">
+                <label for="registerPassword2">Repetir contraseña</label>
 
-                <div class="show-password" onclick="TogglePassword(this)">
-                    <i class="bi bi-eye-fill fs-5"></i>
-                </div>
+                <button type="button" class="btn-show-password" (click)="showPassword2 = !showPassword2">
+                    <i class="bi" [ngClass]="showPassword2 ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                </button>
 
-                <div class="invalid-feedback">
-                    Este campo es obligatorio.
-                </div>
+                    <div class="invalid-feedback">Deben ser minimo 6 caracteres.</div>
             </div>
 
 
             <div class="mb-5">
                 <button type="button" class="btn btn-outline-danger d-block w-100" (click)="cambiarforma('segundo')">Siguiente</button>
             </div>
+
+            <div class="link-panel-control d-flex justify-content-center gap-2">
+                <a routerLink="/panel-control">Volver a Inicio</a>
+            </div>
+
         </form>
 
         <form class="bg-white border border-light-subtle rounded-3 register-form-second" method="post">
@@ -61,7 +104,9 @@
             <h1 class="h4 m-auto mb-3 text-center">Registrarme</h1>
 
             <div class="form-floating mb-3 position-relative">
-                <input type="text" class="form-control" id="registerName" placeholder="Nombre">
+                <input type="text" class="form-control" id="registerName" placeholder="Nombre"
+                       name="nombre" [(ngModel)]="nuevoUsuario.nombre" required #nombreCtrl="ngModel"
+                       [ngClass]="{'is-invalid': nombreCtrl.invalid && nombreCtrl.touched}">
                 <label for="registerName">Nombre</label>
 
                 <div class="invalid-feedback">
@@ -70,7 +115,9 @@
             </div>
 
             <div class="form-floating mb-3 position-relative">
-                <input type="text" class="form-control" id="registerlastName" placeholder="Ap">
+                <input type="text" class="form-control" id="registerlastName" placeholder="Apellidos"
+                       name="apellidos" [(ngModel)]="nuevoUsuario.apellidos" required #apellidosCtrl="ngModel"
+                       [ngClass]="{'is-invalid': apellidosCtrl.invalid && apellidosCtrl.touched}">
                 <label for="registerlastName">Apellidos</label>
 
                 <div class="invalid-feedback">
@@ -79,7 +126,9 @@
             </div>
 
             <div class="form-floating mb-3 position-relative">
-                <input type="text" class="form-control" id="registerEmpresa" placeholder="Apellidos">
+                <input type="text" class="form-control" id="registerEmpresa" placeholder="Nombre de Empresa"
+                       name="nombre_empresa" [(ngModel)]="nuevoUsuario.nombre_empresa" required #empresaCtrl="ngModel"
+                       [ngClass]="{'is-invalid': empresaCtrl.invalid && empresaCtrl.touched}">
                 <label for="registerEmpresa">Nombre de empresa</label>
 
                 <div class="invalid-feedback">
@@ -88,10 +137,12 @@
             </div>
 
             <div class="position-relative mb-3">
-                <input type="number" class="form-control" id="registerUser" min="1" max="5" placeholder="Nº usuarios (empleados)">
+                <input type="number" class="form-control" id="registerUser" min="1" max="5" placeholder="Nº usuarios (empleados)"
+                name="numero_empleados" [(ngModel)]="nuevoUsuario.numero_empleados" required #empleadosCtrl="ngModel"
+                [ngClass]="{'is-invalid': empleadosCtrl.invalid && empleadosCtrl.touched}">
 
                 <div class="invalid-feedback">
-                    Este campo es obligatorio.
+                    Debe ser entre 1 y 5.
                 </div>
             </div>
 
@@ -104,7 +155,7 @@
 
             <div class="d-flex justify-content-center gap-3">
                 <button type="button" class="btn btn-outline-danger d-block" (click)="cambiarforma('primero')">Atrás</button>
-                <button type="submit" class="btn btn-outline-primary d-block ">Finalizar registro</button>
+                <button type="button" class="btn btn-outline-primary d-block" (click)="onRegister()">Finalizar registro</button>
             </div>
         </form>
     </div>

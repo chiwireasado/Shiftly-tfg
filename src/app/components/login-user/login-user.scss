@@ -1,0 +1,94 @@
+.app-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #270f3f;
+  overflow: hidden;
+}
+
+.diagonal-bg {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  transform: rotate(-45deg);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.marquee-row {
+  display: flex;
+  white-space: nowrap;
+  font-size: 5rem;
+  font-weight: 800;
+  color: rgba(61, 18, 84, 0.5);
+  animation: moveCarousel 20s linear infinite;
+}
+
+.marquee-row span {
+  padding-right: 30px;
+  word-spacing: 30px;
+}
+
+@keyframes moveCarousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+.btn-cat {
+  transition: filter 0.2s ease, transform 0.1s ease;
+  color: white;
+}
+.btn-cat:hover {
+  filter: brightness(1.15);
+}
+.btn-cat:active {
+  transform: scale(0.98);
+}
+
+.btn-func {
+  background-color: #7b43a2;
+  color: white !important;
+  transition: background-color 0.2s ease;
+}
+.btn-func:hover {
+  background-color: #643487;
+}
+.btn-func:active {
+  background-color: #4f276d;
+}
+
+
+.w-100 > button:nth-child(4n+1) { background-color: #5d2b7d !important; }
+.w-100 > button:nth-child(4n+2) { background-color: #8c4fc6 !important; }
+.w-100 > button:nth-child(4n+3) { background-color: #3d1c54 !important; } // Morado oscuro (flat white)
+.w-100 > button:nth-child(4n+4) { background-color: #6a328e !important; }
+
+
+.w-100 > button.btn-cat {
+  color: #000000 !important; // Texto negro como en tu Figma
+  font-weight: bold;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  transition: filter 0.15s ease, transform 0.1s ease;
+  border: none !important;
+
+  span {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+}

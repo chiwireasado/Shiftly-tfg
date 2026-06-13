@@ -1,44 +1,391 @@
-<div class="container-pagina-principal-admin vh-100 d-flex align-items-center">
-
-    <div class="row w-100 justify-content-between px-4 px-md-5 g-3">
-
-        <div class="col-12 col-sm-auto">
-            <div class="caja-uno-compacta">
-                <div class="d-flex flex-column">
-                    <button class="fw-bold ">boton uno</button>
-                    <button class="fw-bold">boton dos</button>
-                    <button class="fw-bold">boton tres</button>
-                    <button class="fw-bold">boton cuatro</button>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-12 col-sm-auto">
-            <div class="caja-admin-compacta">
-                <div class="row g-0">
-                    <div class="col-6">
-                        <button class="btn-light w-100 h-100 fw-bold">Modificar Producto</button>
-                    </div>
-                    <div class="col-6">
-                        <button class="fw-bold">Añadir Producto</button>
-                    </div>
-                    <div class="col-6">
-                        <button class="fw-bold">Añadir Empleado</button>
-                    </div>
-                    <div class="col-6">
-                        <button class="fw-bold">Ver Informe</button>
-                    </div>
-                </div>
-
-                <div class="row g-0">
-                    <div class="col-12">
-                        <button class="btn-grande fw-bold">Productos</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<div class="app-wrapper">
+    <div class="diagonal-bg">
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
+        <div class="marquee-row"><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span><span>shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly shiftly</span></div>
     </div>
 
+    <div class="container-pagina-principal-admin h-100 d-flex align-items-center justify-content-center p-4" style="position: relative; z-index: 10;">
+
+        <div class="row w-100 m-0 g-4" [ngClass]="{'justify-content-center': !vistaActual}">
+
+
+            <div class="col-12 col-lg-6" *ngIf="vistaActual">
+                <div class="bg-white rounded-4 p-4 h-100 shadow-lg d-flex flex-column">
+
+                    <h2 class="fw-bold mb-4 border-bottom pb-2" style="color: #459a7d;">
+                        <span *ngIf="vistaActual === 'empleado'">Añadir Nuevo Empleado</span>
+                        <span *ngIf="vistaActual === 'producto'">Nuevo Producto</span>
+                        <span *ngIf="vistaActual === 'modificar'">Modificar Producto</span>
+                        <span *ngIf="vistaActual === 'inventario'">Inventario Actual</span>
+                        <span *ngIf="vistaActual === 'informe'">Informe de Caja</span>
+                        <span *ngIf="vistaActual === 'devolucion'">Devolución</span>
+                    </h2>
+
+                    <div class="flex-grow-1 p-2" style="overflow-y: auto;">
+
+
+                        <div *ngIf="vistaActual === 'empleado'" class="h-100 d-flex flex-column justify-content-center">
+                            <div *ngIf="mensajeExito" class="alert alert-success fw-bold text-center mb-3">{{ mensajeExito }}</div>
+                            <div *ngIf="mensajeError" class="alert alert-danger fw-bold text-center mb-3">{{ mensajeError }}</div>
+
+                            <form #empleadoForm="ngForm" (ngSubmit)="onCrearEmpleado(empleadoForm)">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="empNombre" placeholder="Nombre" name="nombre" [(ngModel)]="nuevoEmpleado.nombre" #nombreCtrl="ngModel" [ngClass]="{'is-invalid': nombreCtrl.invalid && nombreCtrl.touched}">
+                                            <label for="empNombre">Nombre</label>
+                                            <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="empApellidos" placeholder="Apellidos" name="apellidos" [(ngModel)]="nuevoEmpleado.apellidos" #apellidosCtrl="ngModel" [ngClass]="{'is-invalid': apellidosCtrl.invalid && apellidosCtrl.touched}">
+                                            <label for="empApellidos">Apellidos</label>
+                                            <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="empEmail" placeholder="correo@empleado.com" name="email" [(ngModel)]="nuevoEmpleado.email" required email #emailCtrl="ngModel" [ngClass]="{'is-invalid': emailCtrl.invalid && emailCtrl.touched}">
+                                            <label for="empEmail">Correo Electrónico</label>
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="emailCtrl.errors?.['required']">Este campo es obligatorio.</span>
+                                                <span *ngIf="emailCtrl.errors?.['email']">Introduce un correo electrónico válido.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="empUser" placeholder="Usuario" name="username" [(ngModel)]="nuevoEmpleado.username" required #usernameCtrl="ngModel" [ngClass]="{'is-invalid': usernameCtrl.invalid && usernameCtrl.touched}">
+                                            <label for="empUser">Nombre de Usuario</label>
+                                            <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="password" class="form-control" id="empPass" placeholder="******" name="password" [(ngModel)]="nuevoEmpleado.password" required minlength="6" #pass1Ctrl="ngModel" [ngClass]="{'is-invalid': pass1Ctrl.invalid && pass1Ctrl.touched}">
+                                            <label for="empPass">Contraseña</label>
+                                            <div class="invalid-feedback">Deben ser minimo 6 caracteres.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-dark w-100 py-3 mt-2 fw-bold fs-5 shadow-sm" style="background-color: #1a1525; border: none;">Registrar Empleado</button>
+                            </form>
+                        </div>
+
+
+                        <div *ngIf="vistaActual === 'producto'" class="h-100 d-flex flex-column justify-content-center">
+                            <div *ngIf="mensajeExito" class="alert alert-success fw-bold text-center mb-3">{{ mensajeExito }}</div>
+                            <div *ngIf="mensajeError" class="alert alert-danger fw-bold text-center mb-3">{{ mensajeError }}</div>
+
+                            <form (ngSubmit)="onCrearProducto()">
+                                <div class="row g-3">
+                                    <div class="col-md-8">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="prodNombre" placeholder="Nombre" name="nombre" [(ngModel)]="nuevoProducto.nombre" required>
+                                            <label for="prodNombre">Nombre del Producto</label>
+                                            <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="prodCat" name="categoria" [(ngModel)]="nuevoProducto.categoria">
+                                                <option value="BEBIDAS">Bebidas</option>
+                                                <option value="COMIDA">Comida</option>
+                                                <option value="POSTRES">Postres</option>
+                                                <option value="TOSTADAS">Tostadas</option>
+                                            </select>
+                                            <label for="prodCat">Categoría</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" id="prodDesc" placeholder="Descripción" name="descripcion" [(ngModel)]="nuevoProducto.descripcion" style="height: 80px"></textarea>
+                                            <label for="prodDesc">Descripción</label>
+                                            <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="prodPrecio" placeholder="Precio" name="precio" [(ngModel)]="nuevoProducto.precio" step="0.01" required>
+                                            <label for="prodPrecio">Precio (€)</label>
+                                            <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="prodStock" placeholder="Stock" name="stock" [(ngModel)]="nuevoProducto.stock">
+                                            <label for="prodStock">Stock Inicial</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-dark w-100 py-3 mt-2 fw-bold fs-5 shadow-sm" style="background-color: #1a1525; border: none;">Guardar Producto</button>
+                            </form>
+                        </div>
+
+
+                        <div *ngIf="vistaActual === 'inventario'" class="h-100 d-flex flex-column animate__animated animate__fadeIn">
+                            <div class="table-responsive flex-grow-1" style="max-height: 450px; overflow-y: auto;">
+                                <table class="table table-hover align-middle text-center m-0">
+                                    <thead class="table-dark sticky-top" style="background-color: #1a1525;">
+                                    <tr>
+                                        <th scope="col" class="text-start ps-4">Nombre</th>
+                                        <th scope="col">Categoría</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Stock</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let producto of inventario">
+                                        <td class="text-start fw-bold ps-4 text-dark">{{ producto.nombre }}</td>
+                                        <td><span class="badge rounded-pill bg-light text-dark border px-3 py-2 fw-semibold">{{ producto.categoria }}</span></td>
+                                        <td class="fw-bold text-muted">{{ producto.precio }} €</td>
+                                        <td><span class="badge px-3 py-2 fs-6" [ngClass]="producto.stock > 3 ? 'bg-success-subtle text-success border border-success' : 'bg-danger-subtle text-danger border border-danger'">{{ producto.stock }} uds</span></td>
+                                    </tr>
+                                    <tr *ngIf="inventario.length === 0">
+                                        <td colspan="4" class="text-muted py-5 text-center">
+                                            <i class="bi bi-box-seam fs-1 d-block mb-2 text-secondary"></i> No hay productos registrados en el inventario de tu empresa.
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="vistaActual === 'informe'" class="h-100 d-flex flex-column animate__animated animate__fadeIn">
+                            <div class="table-responsive flex-grow-1" style="max-height: 450px; overflow-y: auto;">
+                                <table class="table table-hover align-middle text-center m-0">
+                                    <thead class="table-dark sticky-top" style="background-color: #1a1525;">
+                                    <tr>
+                                        <th scope="col" class="text-start ps-3">Empleado</th>
+                                        <th scope="col">Inicio Turno</th>
+                                        <th scope="col">Cierre Turno</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Acción</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container *ngFor="let turno of listaInformes">
+                                        <tr class="table-light">
+                                            <td class="text-start fw-bold ps-3 text-dark">
+                                                <i class="bi bi-person-circle me-1 text-secondary"></i> {{ turno.empleado_nombre }}
+                                            </td>
+                                            <td><small class="text-muted">{{ turno.hora_inicio }}</small></td>
+                                            <td><small class="text-muted">{{ turno.hora_fin }}</small></td>
+                                            <td class="fw-bold text-success">{{ turno.total_ventas | number:'1.2-2' }} €</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-dark fw-semibold" (click)="toggleDetalleTurno(turno.id_turno)">
+                                                    {{ turnoSeleccionadoId === turno.id_turno ? 'Ocultar' : 'Ver Informe' }}
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        <tr *ngIf="turnoSeleccionadoId === turno.id_turno" class="animate__animated animate__fadeIn">
+                                            <td colspan="5" class="bg-light p-3 border-start border-4 border-success">
+                                                <div class="p-2 rounded bg-white shadow-sm">
+                                                    <h6 class="fw-bold text-start mb-2" style="color: #459a7d;">Artículos Cobrados en el Turno:</h6>
+                                                    <table class="table table-sm m-0 table-borderless text-start">
+                                                        <thead>
+                                                        <tr class="text-muted border-bottom" style="font-size: 0.85rem;">
+                                                            <th>Artículo</th>
+                                                            <th class="text-center">Cant.</th>
+                                                            <th class="text-center">Método</th>
+                                                            <th class="text-end">Subtotal</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr *ngFor="let item of turno.productos_vendidos" style="font-size: 0.9rem;">
+                                                            <td>{{ item.producto }}</td>
+                                                            <td class="text-center">x{{ item.cantidad }}</td>
+                                                            <td class="text-center"><small class="badge bg-secondary" style="font-size: 0.65rem;">{{ item.metodo_pago }}</small></td>
+                                                            <td class="text-end fw-semibold">{{ item.subtotal | number:'1.2-2' }}€</td>
+                                                        </tr>
+                                                        <tr *ngIf="turno.productos_vendidos.length === 0">
+                                                            <td colspan="4" class="text-center text-muted small py-2">Este empleado no registró ventas en este turno.</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+
+                                    <tr *ngIf="listaInformes.length === 0">
+                                        <td colspan="5" class="text-muted py-5 text-center">
+                                            <i class="bi bi-calculator fs-1 d-block mb-2 text-secondary"></i> No hay cierres de caja registrados todavía en tu empresa.
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="vistaActual === 'modificar'" class="h-100 d-flex flex-column animate__animated animate__fadeIn">
+                            <div *ngIf="mensajeExito" class="alert alert-success fw-bold text-center mb-2 py-2 small">{{ mensajeExito }}</div>
+                            <div *ngIf="mensajeError" class="alert alert-danger fw-bold text-center mb-2 py-2 small">{{ mensajeError }}</div>
+
+                            <div class="table-responsive flex-grow-1" style="max-height: 450px; overflow-y: auto;">
+                                <table class="table table-hover align-middle text-center m-0">
+                                    <thead class="table-dark sticky-top" style="background-color: #1a1525;">
+                                    <tr>
+                                        <th scope="col" class="text-start ps-3" style="width: 30%;">Artículo</th>
+                                        <th scope="col" style="width: 25%;">Precio</th>
+                                        <th scope="col" style="width: 30%;">Stock</th>
+                                        <th scope="col" style="width: 15%;"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let prod of inventario">
+                                        <td class="text-start fw-bold ps-3 text-dark">{{ prod.nombre }}</td>
+
+                                        <td>
+                                            <div class="input-group input-group-sm justify-content-center">
+                                                <input type="number" class="form-control text-center fw-bold" style="max-width: 80px;" step="0.01" [(ngModel)]="prod.precio">
+                                                <span class="input-group-text">€</span>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="d-flex align-items-center justify-content-center gap-1">
+                                                <input type="number" class="form-control form-control-sm text-center fw-bold bg-white" style="max-width: 60px;" [(ngModel)]="prod.stock">
+                                                <button type="button" class="btn btn-sm btn-outline-success fw-bold"  style="margin-left: 8px; padding: 3px" (click)="alterarStockLocal(prod, -1)">-</button>
+                                                <button type="button" class="btn btn-sm btn-outline-success fw-bold" style="padding: 3px" (click)="alterarStockLocal(prod, 1)">+</button>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <button class="btn btn-sm btn-dark text-white fw-semibold px-2 py-1" style="background-color: #459a7d; border:none; font-size: 0.85rem; padding: 15px" (click)="onGuardarFilaProducto(prod)">
+                                                Seleccionar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="inventario.length === 0">
+                                        <td colspan="4" class="text-muted py-5">No hay productos en el inventario.</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="vistaActual === 'devolucion'" class="h-100 d-flex flex-column animate__animated animate__fadeIn">
+
+
+                            <div *ngIf="mensajeExito" class="alert alert-success fw-bold text-center mb-2 py-2 small">{{ mensajeExito }}</div>
+                            <div *ngIf="mensajeError" class="alert alert-danger fw-bold text-center mb-2 py-2 small">{{ mensajeError }}</div>
+
+
+                            <div *ngIf="subVistaVenta === 'HISTORIAL'" class="table-responsive flex-grow-1" style="max-height: 400px; overflow-y: auto;">
+                                <table class="table table-hover align-middle text-center m-0">
+                                    <thead class="table-dark sticky-top" style="background-color: #1a1525;">
+                                    <tr>
+                                        <th scope="col" class="text-start ps-3">Artículo</th>
+                                        <th scope="col">Cant.</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Cajero</th>
+                                        <th scope="col">Acción</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let v of historialVentas">
+                                        <td class="text-start fw-bold ps-3 text-dark">
+                                            {{ v.producto }} <br><small class="text-muted fw-normal" style="font-size: 0.75rem;">{{ v.fecha }}</small>
+                                        </td>
+                                        <td class="fw-bold">x{{ v.cantidad }}</td>
+                                        <td class="text-muted">{{ v.total | number:'1.2-2' }}€</td>
+                                        <td><small class="badge bg-light text-dark border">{{ v.empleado }}</small></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger fw-semibold text-white px-2 py-1" style="font-size: 0.8rem;" (click)="ejecutarDevolucion(v.id_venta)">
+                                                Devolver
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="historialVentas.length === 0">
+                                        <td colspan="5" class="text-muted py-5 text-center">No se registran ventas disponibles para devolución.</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div *ngIf="subVistaVenta === 'DEVOLUCIONES'" class="table-responsive flex-grow-1" style="max-height: 400px; overflow-y: auto;">
+                                <table class="table table-hover align-middle text-center m-0">
+                                    <thead class="table-dark sticky-top" style="background-color: #2b1d1d;">
+                                    <tr>
+                                        <th scope="col" class="text-start ps-3">Artículo Devuelto</th>
+                                        <th scope="col">Cant.</th>
+                                        <th scope="col">Reembolsado</th>
+                                        <th scope="col">Método</th>
+                                        <th scope="col">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let d of listaDevoluciones" class="table-danger-subtle">
+                                        <td class="text-start fw-bold ps-3 text-dark">
+                                            {{ d.producto }} <br><small class="text-muted fw-normal" style="font-size: 0.75rem;">Caja: {{ d.empleado_caja }}</small>
+                                        </td>
+                                        <td class="fw-bold text-danger">x{{ d.cantidad }}</td>
+                                        <td class="fw-bold text-dark">{{ d.total_reembolsado | number:'1.2-2' }}€</td>
+                                        <td><small class="badge bg-secondary" style="font-size: 0.65rem;">{{ d.metodo_pago }}</small></td>
+                                        <td><span class="badge bg-danger text-white px-2 py-1" style="font-size: 0.75rem;">Restock Applied ✔️</span></td>
+                                    </tr>
+                                    <tr *ngIf="listaDevoluciones.length === 0">
+                                        <td colspan="5" class="text-muted py-5 text-center">No hay registros de devoluciones tramitadas.</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="d-flex gap-2 mb-3 border-bottom pb-2">
+                                <button type="button" class="btn btn-sm" [ngClass]="subVistaVenta === 'HISTORIAL' ? 'btn-dark' : 'btn-outline-dark'" (click)="cargarHistorialVentas()">
+                                    Últimas Ventas
+                                </button>
+                                <button type="button" class="btn btn-sm" [ngClass]="subVistaVenta === 'DEVOLUCIONES' ? 'btn-dark' : 'btn-outline-dark'" (click)="cargarListaDevoluciones()">
+                                    Ver Devoluciones
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: BOTONERA FIXED -->
+            <div class="col-12" [ngClass]="vistaActual ? 'col-lg-6' : 'col-md-8 col-lg-6'">
+                <div class="caja-botones-verde p-4 p-md-5 rounded-4 shadow-lg h-100">
+
+                    <h3 class="text-center fw-bold mb-4 titulo-pregunta" *ngIf="!vistaActual">¿Qué deseas gestionar?</h3>
+                    <h4 class="text-center fw-bold mb-4 titulo-menu border-bottom border-dark pb-2" *ngIf="vistaActual">Menú Admin</h4>
+
+                    <div class="row g-3 h-100 align-content-center">
+                        <div class="col-6">
+                            <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'empleado'}" (click)="cambiarVista('empleado')">Añadir Empleado</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'producto'}" (click)="cambiarVista('producto')">Nuevo Producto</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'modificar'}" (click)="cambiarVista('modificar')">Modificar Producto</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'inventario'}" (click)="cambiarVista('inventario')">Ver Inventario</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'informe'}" (click)="cambiarVista('informe')">Ver Informe de Caja</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'devolucion'}" (click)="cambiarVista('devolucion')">Devolución</button> <!-- Ajustado a 'devolucion' -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
