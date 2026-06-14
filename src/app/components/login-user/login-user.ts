@@ -40,7 +40,7 @@ export class LoginUser implements OnInit {
   }
 
   obtenerNombreUsuarioLogueado() {
-    const usuarioString = localStorage.getItem('name');
+    const usuarioString = localStorage.getItem('usuario');
 
     if (usuarioString) {
       try {
