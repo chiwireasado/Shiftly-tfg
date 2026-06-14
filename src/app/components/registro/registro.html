@@ -137,6 +137,7 @@
             </div>
 
             <div class="position-relative mb-3">
+                <p>Número de empleados de la empresa</p>
                 <input type="number" class="form-control" id="registerUser" min="1" max="5" placeholder="Nº usuarios (empleados)"
                 name="numero_empleados" [(ngModel)]="nuevoUsuario.numero_empleados" required #empleadosCtrl="ngModel"
                 [ngClass]="{'is-invalid': empleadosCtrl.invalid && empleadosCtrl.touched}">
