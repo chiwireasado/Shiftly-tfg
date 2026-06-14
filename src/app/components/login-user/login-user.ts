@@ -40,39 +40,31 @@ export class LoginUser implements OnInit {
   }
 
   obtenerNombreUsuarioLogueado() {
-    const usuarioString = localStorage.getItem('usuario');
-    const token = localStorage.getItem('access_token');
-
-    if (usuarioString) {
-      try {
-        const usuarioObj = JSON.parse(usuarioString);
-        this.nombreEmpleado = usuarioObj.nombre || usuarioObj.username || 'Empleado';
-        this.cdr.detectChanges();
-        return;
-      } catch (e) {
-        console.error('error al parsear objeto usuario: ', e);
-      }
+    // 1. Miramos si guardaste el string suelto del username en el login
+    const usernameGuardado = localStorage.getItem('username'); // A veces se guarda así
+    if (usernameGuardado) {
+      this.nombreEmpleado = usernameGuardado;
+      this.cdr.detectChanges();
+      return;
     }
+
+    // 2. Si no, abrimos el token como ya hacías
+    const token = localStorage.getItem('access_token');
     if (token) {
       try {
-        // Un token JWT tiene 3 partes separadas por puntos; la del medio (índice 1) contiene los datos del usuario
         const payloadBase64 = token.split('.')[1];
-        const payloadDecodificado = atob(payloadBase64); // Decodifica el Base64 estándar
+        const payloadDecodificado = atob(payloadBase64);
         const datosToken = JSON.parse(payloadDecodificado);
 
-        console.log('Datos extraídos del Token JWT:', datosToken);
+        // REVISIÓN CLAVE: Ponemos esto para que mires en la consola del navegador F12 qué campos trae tu token
+        console.log("Campos exactos de tu JWT:", datosToken);
 
-        // Revisa en la consola de tu navegador cómo se llama el campo en tu token de Django.
-        // Los estándar de Simple JWT suelen ser 'username', 'user_id', o puedes haberle añadido 'nombre'.
-        this.nombreEmpleado = datosToken.nombre || datosToken.username || datosToken.user_id || 'Cajero';
+        // Si trae 'username' o 'email', los usamos. Si solo trae el número, ponemos temporalmente un alias
+        this.nombreEmpleado = datosToken.username || datosToken.email || `Empleado #${datosToken.user_id}`;
       } catch (error) {
-        console.error('Error al decodificar el token JWT:', error);
         this.nombreEmpleado = 'Cajero Activo';
       }
-    } else {
-      this.nombreEmpleado = 'Sin Sesión';
     }
-
     this.cdr.detectChanges();
   }
 
