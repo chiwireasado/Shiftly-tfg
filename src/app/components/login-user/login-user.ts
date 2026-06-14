@@ -41,17 +41,38 @@ export class LoginUser implements OnInit {
 
   obtenerNombreUsuarioLogueado() {
     const usuarioString = localStorage.getItem('usuario');
+    const token = localStorage.getItem('access_token');
 
     if (usuarioString) {
       try {
         const usuarioObj = JSON.parse(usuarioString);
         this.nombreEmpleado = usuarioObj.nombre || usuarioObj.username || 'Empleado';
+        this.cdr.detectChanges();
+        return;
       } catch (e) {
-        this.nombreEmpleado = 'Usuario';
+        console.error('error al parsear objeto usuario: ', e);
+      }
+    }
+    if (token) {
+      try {
+        // Un token JWT tiene 3 partes separadas por puntos; la del medio (índice 1) contiene los datos del usuario
+        const payloadBase64 = token.split('.')[1];
+        const payloadDecodificado = atob(payloadBase64); // Decodifica el Base64 estándar
+        const datosToken = JSON.parse(payloadDecodificado);
+
+        console.log('Datos extraídos del Token JWT:', datosToken);
+
+        // Revisa en la consola de tu navegador cómo se llama el campo en tu token de Django.
+        // Los estándar de Simple JWT suelen ser 'username', 'user_id', o puedes haberle añadido 'nombre'.
+        this.nombreEmpleado = datosToken.nombre || datosToken.username || datosToken.user_id || 'Cajero';
+      } catch (error) {
+        console.error('Error al decodificar el token JWT:', error);
+        this.nombreEmpleado = 'Cajero Activo';
       }
     } else {
-      this.nombreEmpleado = 'Cajero Activo';
+      this.nombreEmpleado = 'Sin Sesión';
     }
+
     this.cdr.detectChanges();
   }
 
