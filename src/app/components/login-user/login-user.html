@@ -23,7 +23,7 @@
 
                     <div class="w-50 d-flex flex-column bg-white">
                         <div class="bg-secondary-subtle d-flex justify-content-between align-items-center px-3 py-2 text-dark fw-semibold fs-6" style="border-bottom: 1px solid #dee2e6;">
-                            <span>Turno: Maria</span>
+                            <span>Turno: {{ nombreEmpleado }}</span>
                             <button *ngIf="ticket.length > 0" (click)="cancelarOVaciarTicket()" class="btn btn-sm btn-danger py-0 px-2 fw-bold" style="font-size: 0.7rem;">Vaciar</button>
                         </div>
 

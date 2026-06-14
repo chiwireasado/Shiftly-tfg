@@ -262,7 +262,7 @@
 
                                         <td>
                                             <button class="btn btn-sm btn-dark text-white fw-semibold px-2 py-1" style="background-color: #459a7d; border:none; font-size: 0.85rem; padding: 15px" (click)="onGuardarFilaProducto(prod)">
-                                                Seleccionar
+                                                Modificar
                                             </button>
                                         </td>
                                     </tr>
@@ -356,7 +356,7 @@
                 </div>
             </div>
 
-            <!-- COLUMNA DERECHA: BOTONERA FIXED -->
+
             <div class="col-12" [ngClass]="vistaActual ? 'col-lg-6' : 'col-md-8 col-lg-6'">
                 <div class="caja-botones-verde p-4 p-md-5 rounded-4 shadow-lg h-100">
 
@@ -380,7 +380,7 @@
                             <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'informe'}" (click)="cambiarVista('informe')">Ver Informe de Caja</button>
                         </div>
                         <div class="col-6">
-                            <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'devolucion'}" (click)="cambiarVista('devolucion')">Devolución</button> <!-- Ajustado a 'devolucion' -->
+                            <button class="btn-admin-cuadrado w-100" [ngClass]="{'activo': vistaActual === 'devolucion'}" (click)="cambiarVista('devolucion')">Devolución</button>
                         </div>
                     </div>
                 </div>

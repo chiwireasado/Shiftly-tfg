@@ -13,6 +13,8 @@ export class LoginUser implements OnInit {
 
   vistaActual: string = 'ventas';
 
+  nombreEmpleado: string = 'Cargando...';
+
   todosLosProductos: any[] = [];
   productosFiltrados: any[] = [];
   modoVista: 'CATEGORIAS' | 'PRODUCTOS' = 'CATEGORIAS';
@@ -34,6 +36,23 @@ export class LoginUser implements OnInit {
 
   ngOnInit() {
     this.cargarInventarioCompleto();
+    this.obtenerNombreUsuarioLogueado();
+  }
+
+  obtenerNombreUsuarioLogueado() {
+    const usuarioString = localStorage.getItem('name');
+
+    if (usuarioString) {
+      try {
+        const usuarioObj = JSON.parse(usuarioString);
+        this.nombreEmpleado = usuarioObj.nombre || usuarioObj.username || 'Empleado';
+      } catch (e) {
+        this.nombreEmpleado = 'Usuario';
+      }
+    } else {
+      this.nombreEmpleado = 'Cajero Activo';
+    }
+    this.cdr.detectChanges();
   }
 
 
