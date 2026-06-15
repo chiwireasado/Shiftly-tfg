@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from "@angular/common";
+import { Router } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 
@@ -31,7 +32,8 @@ export class LoginUser implements OnInit {
 
   constructor(
       private authService: AuthService,
-      private cdr: ChangeDetectorRef
+      private cdr: ChangeDetectorRef,
+      private router: Router
   ) {}
 
   ngOnInit() {
@@ -47,26 +49,40 @@ export class LoginUser implements OnInit {
       return;
     }
 
+    this.authService.verInforme().subscribe({
+      next: (datos) => {
+        if (datos && datos.empleado) {
+          this.nombreEmpleado = datos.empleado;
+          localStorage.setItem('nombre', datos.empleado);
+          this.cdr.detectChanges();
+        }
+      },
+      error: (err) => {
+        console.log('Django bloqueó el informe porque el turno está activo, revisamos el error:', err);
 
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      try {
-        const payloadBase64 = token.split('.')[1];
-        const payloadDecodificado = atob(payloadBase64);
-        const datosToken = JSON.parse(payloadDecodificado);
+        if (err.error && err.error.empleado) {
+          this.nombreEmpleado = err.error.empleado;
+        } else {
+          const token = localStorage.getItem('access_token');
+          if (token) {
+            try {
+              const payloadBase64 = token.split('.')[1];
+              const datosToken = JSON.parse(atob(payloadBase64));
 
+              this.nombreEmpleado = datosToken.nombre || datosToken.username || (datosToken.email ? datosToken.email.split('@')[0] : 'Cajero');
+            } catch (e) {
+              this.nombreEmpleado = 'Cajero Activo';
+            }
+          } else {
 
-        console.log("Campos exactos de tu JWT:", datosToken);
-
-
-        this.nombreEmpleado = datosToken.username || datosToken.email || `Empleado #${datosToken.user_id}`;
-      } catch (error) {
-        this.nombreEmpleado = 'Cajero Activo';
+            console.log('No hay sesión activa de verdad. Volviendo a control...');
+            this.router.navigate(['/panel-control']);
+          }
+        }
+        this.cdr.detectChanges();
       }
-    }
-    this.cdr.detectChanges();
+    });
   }
-
 
   cargarInventarioCompleto() {
     this.authService.obtenerInventario().subscribe({
