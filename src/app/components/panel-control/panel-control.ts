@@ -1,9 +1,8 @@
-import {Component, ChangeDetectorRef} from '@angular/core';
-import {Router, RouterLink} from "@angular/router";
-import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-panel-control',
@@ -11,7 +10,6 @@ import {AuthService} from "../../services/auth.service";
   templateUrl: './panel-control.html',
   styleUrl: './panel-control.scss',
 })
-
 export class PanelControl {
   showPassword: boolean = false;
 
@@ -22,13 +20,11 @@ export class PanelControl {
 
   mensajeError: string = '';
 
-
   constructor(
       private authService: AuthService,
       private router: Router,
       private cdr: ChangeDetectorRef,
   ) {}
-
 
   onLogin() {
     this.mensajeError = '';
@@ -54,6 +50,10 @@ export class PanelControl {
         localStorage.setItem('user_role', respuesta.rol);
         localStorage.setItem('user_email', respuesta.email);
 
+
+        const nombreEmpleado = respuesta.nombre || respuesta.username || 'Empleado';
+        localStorage.setItem('nombre', nombreEmpleado);
+
         if (respuesta.rol === 'ADMIN') {
           console.log('Redirigiendo a Administración');
           this.router.navigate(['/auth/loginAdmin']);
@@ -64,7 +64,7 @@ export class PanelControl {
       },
       error: (err: any) => {
         console.error('Error de Django:', err);
-        this.mensajeError = 'Correo o contraseña incorrectos. ¡Inténtalo de nuevo!'
+        this.mensajeError = 'Correo o contraseña incorrectos. ¡Inténtalo de nuevo!';
         this.cdr.detectChanges();
       }
     });

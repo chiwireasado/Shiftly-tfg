@@ -40,15 +40,14 @@ export class LoginUser implements OnInit {
   }
 
   obtenerNombreUsuarioLogueado() {
-    // 1. Miramos si guardaste el string suelto del username en el login
-    const usernameGuardado = localStorage.getItem('username'); // A veces se guarda así
+    const usernameGuardado = localStorage.getItem('nombre');
     if (usernameGuardado) {
       this.nombreEmpleado = usernameGuardado;
       this.cdr.detectChanges();
       return;
     }
 
-    // 2. Si no, abrimos el token como ya hacías
+
     const token = localStorage.getItem('access_token');
     if (token) {
       try {
@@ -56,10 +55,10 @@ export class LoginUser implements OnInit {
         const payloadDecodificado = atob(payloadBase64);
         const datosToken = JSON.parse(payloadDecodificado);
 
-        // REVISIÓN CLAVE: Ponemos esto para que mires en la consola del navegador F12 qué campos trae tu token
+
         console.log("Campos exactos de tu JWT:", datosToken);
 
-        // Si trae 'username' o 'email', los usamos. Si solo trae el número, ponemos temporalmente un alias
+
         this.nombreEmpleado = datosToken.username || datosToken.email || `Empleado #${datosToken.user_id}`;
       } catch (error) {
         this.nombreEmpleado = 'Cajero Activo';
