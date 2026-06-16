@@ -8,7 +8,7 @@ import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/s
   selector: 'app-pago',
   imports: [CommonModule],
   templateUrl: './pago.html',
-  styleUrls: ['./pago.css']
+  styleUrls: ['./pago.scss']
 })
 export class Pago implements OnInit {
   productosAProcesar: any[] = [];
