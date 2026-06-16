@@ -55,7 +55,7 @@ export class Pago implements OnInit {
 
 
     this.http.post<{ clientSecret: string, totalCalculado: number }>(
-        'http://localhost:8000/api/create-payment-intent/',
+        'https://shiftly-back.onrender.com',
         { productos: this.productosAProcesar },
         { headers: headers }
     ).subscribe({
