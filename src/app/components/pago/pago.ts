@@ -7,10 +7,10 @@ import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/s
 @Component({
   selector: 'app-pago',
   imports: [CommonModule],
-  templateUrl: './pago.component.html',
-  styleUrls: ['./pago.component.css']
+  templateUrl: './pago.html',
+  styleUrls: ['./pago.css']
 })
-export class PagoComponent implements OnInit {
+export class Pago implements OnInit {
   productosAProcesar: any[] = [];
   montoVisual: number = 0;
 
