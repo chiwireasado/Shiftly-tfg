@@ -1,22 +1,38 @@
-<div class="pago-container">
-    <h2>Finalizar Compra</h2>
-    <p>Ingresa los datos de tu tarjeta de crédito o débito de forma segura:</p>
+<div class="checkout-container">
+    <div class="checkout-card">
 
-    <form (submit)="$event.preventDefault()">
-        <div class="form-group">
-            <div #cardElement id="card-element"></div>
+        <div class="checkout-header">
+            <h2>Finalizar Compra</h2>
+            <p>Ingresa los datos de tu tarjeta de crédito o débito de forma segura:</p>
         </div>
 
-        <div *ngIf="mensajeError" class="error-mensaje">
-            {{ mensajeError }}
+        <div class="amount-badge" *ngIf="montoVisual > 0">
+            <span class="label">Total a cobrar:</span>
+            <span class="price">${{ montoVisual | number:'1.2-2' }}</span>
+        </div>
+
+        <div class="stripe-form-group">
+            <label class="input-label">Datos de la Tarjeta</label>
+            <div class="stripe-input-wrapper">
+                <div #cardElement id="card-element"></div>
+            </div>
+            <small class="secure-text">🔒 Conexión encriptada SSL segura vía Stripe</small>
+        </div>
+
+        <div class="error-banner" *ngIf="mensajeError">
+            <span class="error-icon">⚠️</span>
+            <span class="error-text">{{ mensajeError }}</span>
         </div>
 
         <button
                 (click)="procesarPagoReal()"
                 [disabled]="cargando || !clientSecret"
-                type="button"
-                class="btn-pagar">
-            {{ cargando ? 'Procesando pago...' : 'Pagar Ahora' }}
+                [class.loading]="cargando"
+                class="btn-submit">
+
+            <span *ngIf="!cargando">Confirmar y Pagar ${{ montoVisual }}</span>
+            <span *ngIf="cargando" class="spinner-text">Procesando Tarjeta...</span>
         </button>
-    </form>
+
+    </div>
 </div>
