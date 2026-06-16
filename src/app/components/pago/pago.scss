@@ -1,41 +1,135 @@
-.pago-container {
-  max-width: 450px;
-  margin: 40px auto;
-  padding: 30px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+.checkout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding: 20px;
 }
 
-.form-group {
-  margin: 20px 0;
-  background: white;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.btn-pagar {
+.checkout-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 35px;
   width: 100%;
-  background-color: #6772e5; /* El color clásico de Stripe */
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  max-width: 480px;
+  box-sizing: border-box;
 }
 
-.btn-pagar:disabled {
-  background-color: #a5abf2;
-  cursor: not-allowed;
+.checkout-header h2 {
+  margin: 0 0 10px 0;
+  color: #1a1f36;
+  font-size: 26px;
+  font-weight: 700;
 }
 
-.error-mensaje {
-  color: #df1b41;
+.checkout-header p {
+  margin: 0 0 25px 0;
+  color: #a3acb9;
   font-size: 14px;
-  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.amount-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f6f8;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.amount-badge .label {
+  color: #4f5b66;
+  font-weight: 600;
+}
+
+.amount-badge .price {
+  color: #635bff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.stripe-form-group {
+  margin-bottom: 25px;
+}
+
+.input-label {
+  display: block;
+  color: #4f5b66;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stripe-input-wrapper {
+  background-color: #ffffff;
+  border: 1px solid #e3e8ee;
+  border-radius: 8px;
+  padding: 14px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Efecto focus simulado para cuando el usuario pinche la tarjeta */
+.stripe-input-wrapper:focus-within {
+  border-color: #a5b4fc;
+  box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.15);
+}
+
+.secure-text {
+  display: block;
+  margin-top: 8px;
+  color: #718096;
+  font-size: 12px;
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  background-color: #fff5f5;
+  border-left: 4px solid #f56565;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.error-icon {
+  margin-right: 10px;
+}
+
+.error-text {
+  color: #c53030;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.btn-submit {
+  width: 100%;
+  background-color: #635bff; /* El color púrpura característico de Stripe */
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(99, 91, 255, 0.2);
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #0a2540;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(10, 37, 64, 0.2);
+}
+
+.btn-submit:disabled {
+  background-color: #cbd5e0;
+  color: #718096;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
