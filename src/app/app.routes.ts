@@ -28,6 +28,11 @@ export const routes: Routes = [
 
     },
     {
+        path: 'pago',
+        loadComponent: () => import('./components/pago/pago').then(m => m.Pago),
+
+    },
+    {
         path: 'auth',
         loadComponent: () => import('./layouts/auth-layout/auth-layout').then(m => m.AuthLayout),
         children: [

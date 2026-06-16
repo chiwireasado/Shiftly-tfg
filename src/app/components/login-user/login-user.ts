@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-login-user',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login-user.html',
   styleUrl: './login-user.scss',
 })
@@ -168,6 +168,19 @@ export class LoginUser implements OnInit {
     if (this.ticket.length === 0) {
       this.mensajeAccion = 'No se puede procesar un pago con el ticket vacío';
       return;
+    }
+
+    if (metodo === 'TARJETA') {
+      const productosParaPago = this.ticket.map(item => ({
+        id: item.id,
+        cantidad: item.cantidad
+      }));
+
+      this.router.navigate(['/pago'], {
+        state: {productos: productosParaPago},
+      });
+
+      return
     }
 
     const datosParaEnviar = {

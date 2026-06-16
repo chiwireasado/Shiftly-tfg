@@ -1,0 +1,22 @@
+<div class="pago-container">
+    <h2>Finalizar Compra</h2>
+    <p>Ingresa los datos de tu tarjeta de crédito o débito de forma segura:</p>
+
+    <form (submit)="$event.preventDefault()">
+        <div class="form-group">
+            <div #cardElement id="card-element"></div>
+        </div>
+
+        <div *ngIf="mensajeError" class="error-mensaje">
+            {{ mensajeError }}
+        </div>
+
+        <button
+                (click)="procesarPago()"
+                [disabled]="cargando || !clientSecret"
+                type="button"
+                class="btn-pagar">
+            {{ cargando ? 'Procesando pago...' : 'Pagar Ahora' }}
+        </button>
+    </form>
+</div>
